@@ -5,6 +5,10 @@ export function onStart (callback) {
   socket.on('start', () => callback())
 }
 
+export function onOpponentLeft (callback) {
+  socket.on('opponent-left', () => callback())
+}
+
 export function onAnnouncement (callback) {
   socket.on('announce', result => callback(result))
 }
