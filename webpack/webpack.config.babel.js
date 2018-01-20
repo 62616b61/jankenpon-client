@@ -6,10 +6,10 @@ import productionWebpackConfig from './production'
 import developmentWebpackConfig from './development'
 
 const config = {
-  jsSourcePath: join(process.cwd(), './source/js'),
-  assetsPath: join(process.cwd(), './source/assets'),
+  jsSourcePath: join(process.cwd(), './src/js'),
+  assetsPath: join(process.cwd(), './src/assets'),
   buildPath: join(process.cwd(), './dist'),
-  sourcePath: join(process.cwd(), './source'),
+  sourcePath: join(process.cwd(), './src'),
   nodeEnv: process.env.NODE_ENV || 'development'
 }
 
