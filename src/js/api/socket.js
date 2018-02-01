@@ -10,7 +10,7 @@ export function onOpponentLeft (callback) {
 }
 
 export function onAnnouncement (callback) {
-  socket.on('announce', result => callback(result))
+  socket.on('announcement', result => callback(result))
 }
 
 export function emitReadiness () {
