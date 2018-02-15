@@ -1,5 +1,5 @@
 import io from 'socket.io-client'
-const socket = io('https://jankenpon.herokuapp.com/')
+const socket = io('jankenpon')
 
 export function onStart (callback) {
   socket.on('start', () => callback())
@@ -11,6 +11,10 @@ export function onOpponentLeft (callback) {
 
 export function onAnnouncement (callback) {
   socket.on('announcement', result => callback(result))
+}
+
+export function onRoomIsBeingPrepared (callback) {
+  socket.on('room-is-being-prepared', result => callback(result))
 }
 
 export function emitReadiness () {
