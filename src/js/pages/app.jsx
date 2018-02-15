@@ -4,6 +4,7 @@ import {
   emitReadiness,
   emitChoice,
   onStart,
+  onRoomIsBeingPrepared,
   onOpponentLeft,
   onAnnouncement
 } from '../api/socket'
@@ -17,10 +18,15 @@ class App extends React.Component {
     this.state = {
       isReady: false,
       didChoose: false,
+      roomIsBeingPrepared: false,
       opponentFound: false,
       opponentLeft: false,
       matchResult: null
     }
+
+    onRoomIsBeingPrepared(() => this.setState({
+      roomIsBeingPrepared: true
+    }))
 
     onStart(() => this.setState({
       opponentFound: true
