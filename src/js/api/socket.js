@@ -1,5 +1,5 @@
 import io from 'socket.io-client'
-const socket = io('http://35.198.152.240/')
+const socket = io('35.198.154.33')
 
 export function onStart (callback) {
   socket.on('start', () => callback())
