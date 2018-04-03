@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "nps build",
+    "build:raspi": "cross-env RUNTIME=raspi yarn build",
     "start": "nps",
     "dev": "nps dev"
   },

@@ -6,9 +6,7 @@ WORKDIR /app
 ADD package.json yarn.lock /app/
 RUN yarn --pure-lockfile
 
-ENV RUNTIME raspi
-
 COPY . /app
-RUN yarn build
+RUN yarn build:raspi
 
 CMD ["yarn", "start"]
