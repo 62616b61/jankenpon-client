@@ -1,5 +1,9 @@
 import io from 'socket.io-client'
-const socket = io('35.198.154.33')
+
+const ip = process.env.RUNTIME === 'raspi'
+  ? '192.168.1.101:30303'
+  : '35.198.154.33'
+const socket = io(ip)
 
 export function onStart (callback) {
   socket.on('start', () => callback())
