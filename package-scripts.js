@@ -12,7 +12,7 @@ module.exports = {
       default: rimraf('dist')
     },
     default: {
-      script: `${crossEnv('NODE_ENV=production')} serve -p ${process.env.PORT} dist`
+      script: `${crossEnv('NODE_ENV=production')} serve -p 3000 dist`
     },
     dev: {
       default: 'webpack-dev-server --config ./webpack/webpack.config.babel.js'
