@@ -1,5 +1,5 @@
 import io from 'socket.io-client'
-const socket = io('jankenpon')
+const socket = io('http://35.198.152.240/')
 
 export function onStart (callback) {
   socket.on('start', () => callback())
