@@ -7,6 +7,6 @@ ADD package.json yarn.lock /app/
 RUN yarn --pure-lockfile
 
 COPY . /app
-RUN yarn build:raspi
+RUN yarn run build:raspi
 
 CMD ["yarn", "start"]
