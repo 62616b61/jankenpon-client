@@ -4,6 +4,7 @@ import {
   emitReadiness,
   emitChoice,
   onStart,
+  onGeneratedName,
   onRoomIsBeingPrepared,
   onOpponentLeft,
   onAnnouncement
@@ -16,6 +17,7 @@ class App extends React.Component {
     super(props)
 
     this.state = {
+      name: '',
       isReady: false,
       didChoose: false,
       roomIsBeingPrepared: false,
@@ -23,6 +25,10 @@ class App extends React.Component {
       opponentLeft: false,
       matchResult: null
     }
+
+    onGeneratedName((name) => this.setState({
+      name: name
+    }))
 
     onRoomIsBeingPrepared(() => this.setState({
       roomIsBeingPrepared: true
@@ -90,7 +96,11 @@ class App extends React.Component {
                       ? matchResult
                       : <h1>Your opponent is still thinking...</h1>
                     : buttons
-                  : <h1>Looking for opponent...</h1>
+                : <div>
+                    <h1>{this.state.name}</h1>
+                    <h3>vs</h3>
+                    <h1>Looking for opponent...</h1>
+                  </div>
               : <h1>Your opponent left the game :(</h1>
           }
       </Flex>

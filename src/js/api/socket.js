@@ -21,6 +21,10 @@ export function onRoomIsBeingPrepared (callback) {
   socket.on('room-is-being-prepared', result => callback(result))
 }
 
+export function onGeneratedName (callback) {
+  socket.on('generated-name', result => callback(result))
+}
+
 export function emitReadiness () {
   socket.emit('ready')
 }
