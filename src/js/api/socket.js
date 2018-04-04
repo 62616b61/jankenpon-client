@@ -17,8 +17,8 @@ export function onAnnouncement (callback) {
   socket.on('announcement', result => callback(result))
 }
 
-export function onRoomIsBeingPrepared (callback) {
-  socket.on('room-is-being-prepared', result => callback(result))
+export function onOpponentFound (callback) {
+  socket.on('opponent-found', result => callback(result))
 }
 
 export function onGeneratedName (callback) {

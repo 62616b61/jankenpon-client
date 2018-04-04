@@ -5,7 +5,7 @@ import {
   emitChoice,
   onStart,
   onGeneratedName,
-  onRoomIsBeingPrepared,
+  onOpponentFound,
   onOpponentLeft,
   onAnnouncement
 } from '../api/socket'
@@ -20,7 +20,8 @@ class App extends React.Component {
       name: '',
       isReady: false,
       didChoose: false,
-      roomIsBeingPrepared: false,
+      gameHasStarted: false,
+      opponentName: '',
       opponentFound: false,
       opponentLeft: false,
       matchResult: null
@@ -30,12 +31,13 @@ class App extends React.Component {
       name: name
     }))
 
-    onRoomIsBeingPrepared(() => this.setState({
-      roomIsBeingPrepared: true
+    onOpponentFound((name) => this.setState({
+      opponentFound: true,
+      opponentName: name
     }))
 
     onStart(() => this.setState({
-      opponentFound: true
+      gameHasStarted: true
     }))
 
     onOpponentLeft(() => this.setState({
@@ -62,7 +64,6 @@ class App extends React.Component {
   }
 
   render () {
-
     const matchResult = !this.state.matchResult
       ? <h1>Your opponent is still thinking...</h1>
       : this.state.matchResult === 'win'
@@ -76,6 +77,15 @@ class App extends React.Component {
       <button onClick={() => this.choice(2)}>Scissors!</button>
     </Box>
     const ready = <button onClick={() => this.ready()}>I am ready!</button>
+    const pvp = <div>
+      <h1>{this.state.name}</h1>
+      <h3>vs</h3>
+      <h1>{
+        this.state.opponentFound
+          ? this.state.opponentName
+          : "Looking for opponent..."
+      }</h1>
+    </div>
 
     return (
       <Flex
@@ -83,25 +93,35 @@ class App extends React.Component {
         align='center'
         justify='center'
         style={{
+          textAlign: 'center',
           position: 'absolute',
           height: '100%'
         }}>
           {
-            !this.state.opponentLeft
-              ? !this.state.isReady
-                ? ready
-                : this.state.opponentFound
-                  ? this.state.didChoose
+            this.state.isReady
+            ? <div>
+                {pvp}
+                {
+                  this.state.opponentLeft
+                    ? <h1>Your opponent left the game :(</h1>
+                    : null
+                }
+                {
+                  !this.state.opponentLeft && this.state.opponentFound && !this.state.didChoose
+                    ? this.state.gameHasStarted
+                    ? buttons
+                    : <h2>Room is being prepared...</h2>
+                    : null
+                }
+                {
+                  !this.state.opponentLeft && this.state.didChoose
                     ? this.state.matchResult
-                      ? matchResult
-                      : <h1>Your opponent is still thinking...</h1>
-                    : buttons
-                : <div>
-                    <h1>{this.state.name}</h1>
-                    <h3>vs</h3>
-                    <h1>Looking for opponent...</h1>
-                  </div>
-              : <h1>Your opponent left the game :(</h1>
+                    ? matchResult
+                    : <h2>Your opponent is still thinking</h2>
+                    : null
+                }
+              </div>
+            : ready
           }
       </Flex>
     )
