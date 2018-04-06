@@ -24,7 +24,8 @@ class App extends React.Component {
       opponentName: '',
       opponentFound: false,
       opponentLeft: false,
-      matchResult: null
+      matchResult: null,
+      score: [0, 0]
     }
 
     onGeneratedName((name) => this.setState({
@@ -44,9 +45,20 @@ class App extends React.Component {
       opponentLeft: true
     }))
 
-    onAnnouncement(result => this.setState({
-      matchResult: result
-    }))
+    onAnnouncement(result => {
+      this.setState({
+        matchResult: result,
+        score: [
+          result === 'win'
+          ? this.state.score[0] + 1
+          : this.state.score[0],
+
+          result === 'lose'
+          ? this.state.score[1] + 1
+          : this.state.score[1]
+        ]
+      })
+    })
   }
 
   ready () {
@@ -86,6 +98,9 @@ class App extends React.Component {
           : "Looking for opponent..."
       }</h1>
     </div>
+    const score = <div>
+      <h3>{this.state.score[0]} : {this.state.score[1]}</h3>
+    </div>
 
     return (
       <Flex
@@ -101,6 +116,7 @@ class App extends React.Component {
             this.state.isReady
             ? <div>
                 {pvp}
+                {score}
                 {
                   this.state.opponentLeft
                     ? <h1>Your opponent left the game :(</h1>
