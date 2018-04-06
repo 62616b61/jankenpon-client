@@ -49,13 +49,8 @@ class App extends React.Component {
       this.setState({
         matchResult: result,
         score: [
-          result === 'win'
-          ? this.state.score[0] + 1
-          : this.state.score[0],
-
-          result === 'lose'
-          ? this.state.score[1] + 1
-          : this.state.score[1]
+          result === 'win' ? this.state.score[0] + 1 : this.state.score[0],
+          result === 'lose' ? this.state.score[1] + 1 : this.state.score[1]
         ]
       })
     })
