@@ -47,6 +47,7 @@ class App extends React.Component {
 
     onAnnouncement(result => {
       this.setState({
+        didChoose: false,
         matchResult: result,
         score: [
           result === 'win' ? this.state.score[0] + 1 : this.state.score[0],
@@ -66,13 +67,14 @@ class App extends React.Component {
   choice (shape) {
     emitChoice(shape)
     this.setState({
-      didChoose: true
+      didChoose: true,
+      matchResult: null
     })
   }
 
   render () {
     const matchResult = !this.state.matchResult
-      ? <h1>Your opponent is still thinking...</h1>
+      ? <h3>Your opponent is still thinking...</h3>
       : this.state.matchResult === 'win'
       ? <h1>You win!</h1>
       : this.state.matchResult === 'lose'
@@ -85,16 +87,36 @@ class App extends React.Component {
     </Box>
     const ready = <button onClick={() => this.ready()}>I am ready!</button>
     const pvp = <div>
-      <h1>{this.state.name}</h1>
+      <h1
+        title={'Your name is ' + this.state.name}
+        style={{color: 'green'}}
+      >
+        You
+      </h1>
       <h3>vs</h3>
-      <h1>{
+      <h1 style={{
+        color: 'red'
+      }}>{
         this.state.opponentFound
           ? this.state.opponentName
           : "Looking for opponent..."
       }</h1>
     </div>
     const score = <div>
-      <h3>{this.state.score[0]} : {this.state.score[1]}</h3>
+      <h3>
+        <span>Score: </span>
+        <span style={{
+          color: 'green'
+        }}>
+          {this.state.score[0]}
+        </span>
+        <span> : </span>
+        <span style={{
+          color: 'red'
+        }}>
+          {this.state.score[1]}
+        </span>
+      </h3>
     </div>
 
     return (
