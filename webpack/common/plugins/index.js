@@ -11,7 +11,6 @@ export default (config) => [
   }),
   new webpack.DefinePlugin({
     'process.env': {
-      RUNTIME: JSON.stringify(process.env.RUNTIME === 'raspi' ? 'raspi' : 'gke'),
       IS_DEV: process.env.NODE_ENV !== 'production',
       NODE_ENV: JSON.stringify(config.nodeEnv),
     }
